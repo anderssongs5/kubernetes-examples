@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-dep-service
+  labels:
+    name: hello-dep-service
+spec:
+  ports:
+  - port: 3000
+    targetPort: 8080
+    protocol: TCP
+  selector:
+    app: hello-dep
+  type: NodePort
