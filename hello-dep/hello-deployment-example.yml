@@ -4,12 +4,12 @@ metadata:
   name: hello-dep
   namespace: default
 spec:
-  replicas: 2
+  replicas: 20
   strategy:
     type: "RollingUpdate"
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 25%
+      maxSurge: 1 ## Number of pods replacing at the same time
+      maxUnavailable: 25% ## Max number of pods unavailable
   selector:
     matchLabels:
       app: hello-dep
@@ -19,12 +19,12 @@ spec:
         app: hello-dep
     spec:
       containers:
-      - image: gcr.io/google-samples/hello-app:1.0
+      - image: gcr.io/google-samples/hello-app:2.0
         imagePullPolicy: Always
         name: hello-dep
         ports:
         - containerPort: 8080
-        readinessProbe:
+        readinessProbe: ## Test health of pods using the path
           httpGet:
              path: /
              port: 8080
